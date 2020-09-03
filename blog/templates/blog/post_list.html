@@ -1,18 +1,13 @@
-<html>
-    <head>
-        <title>Django Girls blog</title>
-    </head>
-    <body>
-        <div>
-            <h1><a href='/'>Django Girls Blog</a></h1>
-        </div>
-        
-        {%for post in posts%}
-            <div>
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    {% for post in posts %}
+        <div class="post">
+            <div class="date">
                 <p>published: {{ post.published_date }}</p>
-                <h1><a href="">{{ post.title }}</a></h1>
-                <p>{{ post.text|linebreaksbr}}</p> <!--linebreaksbr은 글 텍스트에서 행이 바귀면 문단으로 변환하도록 하라는 의미이다. (파이프 문자)-->
             </div>
-        {% endfor %}
-    </body>
-</html>
+            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1> <!--post_detail은 blog.views.post_detail의 뷰 경로이다.-->
+            <p>{{ post.text|linebreaksbr }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
